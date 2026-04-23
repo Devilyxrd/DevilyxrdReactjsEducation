@@ -1,0 +1,99 @@
+/* ============================================================================
+   index.css — Tailwind v4 entry + proje globalleri
+   ----------------------------------------------------------------------------
+   Tailwind v4'te tek bir @import yeterli. Config dosyası yok — tüm tema
+   @theme bloğunda inline tanımlı. Custom keyframe'ler de burada.
+   ============================================================================ */
+
+@import 'tailwindcss';
+
+/* ---- Tema: Proje varsayılan olarak DARK THEME --------------------------- */
+/* html'ye `class="dark"` main.tsx'te baştan atanıyor.                       */
+/* Bu blok Tailwind'in varsayılan variant'ını bizim değişkenlerimizle değiş. */
+
+@theme {
+  --font-sans:
+    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+
+  /* Marka renkleri — Tailwind 'brand-' prefix'iyle erişilebilir */
+  --color-brand-50:  #faf5ff;
+  --color-brand-100: #f3e8ff;
+  --color-brand-200: #e9d5ff;
+  --color-brand-300: #d8b4fe;
+  --color-brand-400: #c084fc;
+  --color-brand-500: #a855f7;
+  --color-brand-600: #9333ea;
+  --color-brand-700: #7e22ce;
+  --color-brand-800: #6b21a8;
+  --color-brand-900: #581c87;
+
+  /* Custom animasyonlar — aşağıdaki @keyframes'lerle eşleşir */
+  --animate-fade-in:  fade-in 0.4s ease-out both;
+  --animate-slide-up: slide-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-slide-down: slide-down 0.4s ease-out both;
+  --animate-scale-in: scale-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-shimmer:  shimmer 1.5s ease-in-out infinite;
+}
+
+/* ---- Keyframe tanımları (Tailwind v4'te normal @keyframes kullanılır) --- */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+/* ---- Globaller ---------------------------------------------------------- */
+
+html,
+body,
+#root {
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  @apply bg-zinc-950 text-zinc-100 antialiased;
+  font-family: var(--font-sans);
+}
+
+/* Modern scrollbar — tek yerde tanımla, her yere yansısın */
+::-webkit-scrollbar       { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: rgb(24 24 27); }
+::-webkit-scrollbar-thumb {
+  background: rgb(63 63 70);
+  border-radius: 999px;
+  border: 2px solid rgb(24 24 27);
+}
+::-webkit-scrollbar-thumb:hover { background: rgb(82 82 91); }
+
+/* Kullanıcı azaltılmış animasyon tercih ettiyse hepsini kısalt */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
